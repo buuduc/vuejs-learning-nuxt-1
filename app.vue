@@ -1,16 +1,20 @@
 <template>
-  <NuxtLayout>
-    <NuxtPage />
-  </NuxtLayout>
+  <HomeWelcome v-if="state.value === 'welcome'" />
+  <button @click="toggleHandler">Toggle</button>
+  <p>{{ state.a }}</p>
+  <component :is="MyComponent" />
+  <!-- <Counter/> -->
 </template>
-<style>
-.page-enter-active,
-.page-leave-active {
-  transition: all 3s;
+
+<script setup>
+const MyComponent = ref(resolveComponent('Counter'))
+const Counter = resolveComponent('Counter')
+// const state = shallowRef({a: 1})
+let dcm = 1
+const toggleHandler = () => {
+  MyComponent.value = resolveComponent('HomeWelcome')
+  console.log('dcm', state.value.a)
+  // state.value.a=state.value.a+1
 }
-.page-enter-from,
-.page-leave-to {
-  opacity: 0;
-  filter: blur(1rem);
-}
-</style>
+</script>
+
