@@ -17,14 +17,16 @@ export default defineNuxtConfig({
     transpile: ['vuetify'],
   },
   modules: [
-    '@nuxtjs/tailwindcss',
     (_options, nuxt) => {
       nuxt.hooks.hook('vite:extendConfig', (config) => {
         // @ts-expect-error
         config.plugins.push(vuetify({ autoImport: true }))
       })
     },
-    //...
+    '@nuxtjs/tailwindcss',
+    '@pinia/nuxt',
+    '@nuxt/image',
+
   ],
   vite: {
     vue: {

@@ -1,38 +1,47 @@
 <template>
     <div>
-        <h1>There is list of products</h1>
+        <div>
+        <h1>There is a list of products</h1>
     </div>
+    <button @click="clickHandler">click</button>
+    <div>{{ store.counter }}</div>
     <div class="container">
     <ProductItem 
-        v-for="item in data"
+        v-for="item in store.products"
+        :key="item.id"
         :price="item.price" 
         class="item-1 item" 
         :title="item.title"
         :imgUrl="item.image"
         :sold="item.rating.count"
         :rating="item.rating.rate"
+        :id="item.id"
+        @onBuyNow="(id) => console.log(id)"
+        @onAddToCart="onAddToCart"
+        @onRemoveFromCart="cartStore.removeCart"
     />
 
-    <!-- <ProductItem class="item-2 item" />
-<ProductItem class="item-3 item" />
-<ProductItem class="item-4 item" />
-<ProductItem class="item-5 item" /> -->
+    </div>
     </div>
 </template>
 
 <script setup>
-import { PRODUCT_URL } from '~/utils/constant';
+    const store = useProductStore()
+    const cartStore = useCartStore()
 
-    const {data, error} = useFetch(PRODUCT_URL)
+    await useAsyncData('products', store.getProducts)
+    
+    const clickHandler = async () => { 
+        store.getProducts()
+     }
+     const onAddToCart = (id, amount) => { 
+        console.log('🚀 🚀 file: index.vue:36 🚀 onAddToCart 🚀 amount:', amount)
+        cartStore.addCart(id, amount)
+      }
 
 </script>
 
 <style lang="scss" scoped>
-.item{
-    background-color: gold;
-    border: 1px solid grey;
-    // min-height: 50px;
-}
 .container{
     margin: auto;
     display: grid;
