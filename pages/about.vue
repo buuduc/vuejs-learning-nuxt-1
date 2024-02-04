@@ -1,4 +1,5 @@
 <template>
+  <div>
     <section>
         <p>This page will be displayed at the /about route.</p>
     </section>
@@ -9,6 +10,7 @@
         </li>
     </template>
 </ul>
+  </div>
 </template>
 
 
@@ -18,9 +20,7 @@
 // })
 
 definePageMeta({
-    pageTransition: {
-        name: 'rotate'
-    }
+    layout: false
 })
   const todos = ref([
         {
